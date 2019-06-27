@@ -1,0 +1,22 @@
+type ContestScore @embedded {
+    attempted: Boolean!
+    primary: Int!
+    secondary: Int!
+}
+
+type Participant {
+    id: ID! @id
+    scope: Scope! @relation(
+        name: "ParticipantOfScope"
+        link: INLINE
+    )
+    user: User! @relation(
+        name: "ParticipantOfUser"
+        link: INLINE
+    )
+    step: Int
+    skippedStep: Int
+    score: [ContestScore!]
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@whojudge/core",
+  "version": "1.0.0",
+  "description": "A Lightweight Online Judge System.",
+  "main": "dist/index.js",
+  "dependencies": {
+    "prisma-client-lib": "^1.34.0"
+  },
+  "devDependencies": {
+    "prisma": "^1.34.0",
+    "typescript": "^3.5.2"
+  },
+  "scripts": {
+    "prisma:deploy": "prisma deploy",
+    "build": "npm run prisma:deploy && tsc",
+    "start": "npm run build && node .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sfls/whojudge.git"
+  },
+  "author": "sfls",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sfls/whojudge/issues"
+  },
+  "homepage": "https://github.com/sfls/whojudge#readme"
+}

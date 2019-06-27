@@ -1,0 +1,46 @@
+enum TestcaseStatus {
+    JUDGING,
+    ACCEPTED,
+    WRONG_ANSWER,
+    PARTIALLY_CORRECT,
+    TIME_LIMIT_EXCEEDED,
+    MEMORY_LIMIT_EXCEEDED,
+    OUTPUT_LIMIT_EXCEEDED,
+    RUNTIME_ERROR,
+    SPECIAL_JUDGE_ERROR,
+    COMPILE_ERROR,
+    UNKNOWN_ERROR,
+}
+
+type TestcaseResult @embedded {
+    time: Int!
+    memory: Int!
+    point: Int!
+    status: TestcaseStatus!
+}
+
+enum SubmissionStatus {
+    JUDGING,
+    ACCEPTED,
+    NOT_ACCEPTED,
+    COMPILE_ERR,
+}
+
+type Submission {
+    id: ID! @id
+    user: User! @relation(
+        name: "SubmissionOfUser"
+        link: INLINE
+    )
+    problem: Problem! @relation(
+        name: "SubmissionOfProblem"
+        link: INLINE
+    )
+    code: String
+    language: String!
+    status: SubmissionStatus!
+    score: Int!
+    detail: [TestcaseResult!]!
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+}

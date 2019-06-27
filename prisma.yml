@@ -1,0 +1,12 @@
+endpoint: http://localhost:4466
+datamodel:
+    - db/scope.prisma
+    - db/problem.prisma
+    - db/submission.prisma
+    - db/participant.prisma
+    - db/user.prisma
+databaseType: document
+secret: __YOUR_SECRET_HERE__
+generate:
+    - generator: typescript-client
+      output: ./node_modules/prisma-client/

@@ -1,0 +1,41 @@
+type Example @embedded {
+    input: String!
+    output: String!
+}
+
+type Testcase @embedded {
+    time: Int!
+    memory: Int!
+    point: Int!
+}
+
+type Problem {
+    id: ID! @id
+    scope: Scope! @relation(
+        name: "ProblemOfScope"
+        link: INLINE
+    )
+    creator: User! @relation(
+        name: "ProblemOfUser"
+        link: INLINE
+    )
+    title: String!
+    hasStory: Boolean!
+    story: String
+    background: String!
+    description: String!
+    inputFormat: String!
+    outputFormat: String!
+    tips: String!
+    examples: [Example!]!
+    testcases: [Testcase!]!
+    spj: String!
+    tags: [String!]!
+    isReady: Boolean!
+    visible: Boolean!
+    nAccepted: Int!
+    nAttempted: Int!
+    submissions: [Submission!]! @relation(name: "SubmissionOfProblem")
+    createdAt: DateTime! @createdAt
+    updatedAt: DateTime! @updatedAt
+}

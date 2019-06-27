@@ -36,7 +36,7 @@ type Submission {
         name: "SubmissionOfProblem"
         link: INLINE
     )
-    code: String
+    code: String!
     language: String!
     status: SubmissionStatus!
     score: Int!

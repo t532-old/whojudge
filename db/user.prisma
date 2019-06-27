@@ -9,6 +9,7 @@ type Token {
 type User {
     id: ID! @id
     username: String! @unique
+    passwordHash: String!
     introduction: String!
     acceptedProblems: [Problem!]! @relation(
         name: "AcceptedProblemsOfUser"

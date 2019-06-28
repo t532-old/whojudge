@@ -17,5 +17,6 @@ A Lightweight Online Judge System. WIP
 ## Build & Run
 ```sh
 npm install
+docker-compose up -d
 npm start
 ```

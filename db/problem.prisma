@@ -27,6 +27,7 @@ type Problem {
     inputFormat: String!
     outputFormat: String!
     tips: String!
+    stdAnswer: String!
     examples: [Example!]!
     testcases: [Testcase!]!
     spj: String!

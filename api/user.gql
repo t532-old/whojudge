@@ -1,0 +1,64 @@
+extend type Query {
+    token(id: ID!): Token
+    # tokens: Searching is unsupported
+    user(id: ID!): User @auth
+    users(
+        where: UserWhereInput
+        orderBy: UserOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [User]! @auth
+}
+
+extend type Mutation {
+
+}
+
+input UserWhereInput {
+  id: ID
+  username: [String!]
+  acceptedProblems: [ID!]
+  attemptedProblems: [ID!]
+  isAdmin: Boolean
+  scopes: [ID!]
+  problems: [ID!]
+  createdAt_lte: DateTime
+  createdAt_gte: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gte: DateTime
+  lastSubmitAt_lte: DateTime
+  lastSubmitAt_gte: DateTime
+}
+
+enum UserOrderByInput {
+  username_ASC
+  username_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  lastSubmitAt_ASC
+  lastSubmitAt_DESC
+}
+
+type Token {
+    id: ID!
+    user: User!
+}
+
+type User {
+    id: ID!
+    username: String!
+    introduction: String!
+    acceptedProblems: [Problem!]!
+    attemptedProblems: [Problem!]!
+    isAdmin: Boolean!
+    scopes: [Scope!]!
+    participants: [Participant!]!
+    submissions: [Submission!]!
+    problems: [Problem!]!
+    createdAt: String!
+    updatedAt: String!
+    lastSubmitAt: String!
+}

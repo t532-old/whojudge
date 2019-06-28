@@ -1,0 +1,71 @@
+extend type Query {
+    scope(id: ID!): Scope @auth
+    scopes(
+        where: ScopeWhereInput
+        orderBy: ScopeOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Scope]! @auth
+}
+
+extend type Mutation {
+
+}
+
+input ScopeWhereInput {
+  id: ID
+  creator: String
+  title: [String!]
+  isSorted: Boolean
+  isLinear: Boolean
+  isContest: Boolean
+  visible: Boolean
+  from_lte: Int
+  from_gte: Int
+  to_lte: Int
+  to_gte: Int
+  createdAt_lte: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gte: DateTime
+}
+
+enum ScopeOrderByInput {
+  title_ASC
+  title_DESC
+  from_ASC
+  from_DESC
+  to_ASC
+  to_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type Contest {
+    contestMode: String
+    sortedParticipants: [Participant!]
+}
+
+type Scope {
+    id: ID!
+    creator: User!
+    title: String!
+    problems: [Problem!]!
+    isSorted: Boolean!
+    sortedProblems: [Problem!]!
+    participants: [Participant!]!
+    isLinear: Boolean!
+    skippable: Int
+    isContest: Boolean!
+    contest: Contest
+    description: String!
+    visible: Boolean!
+    from: Int!
+    to: Int!
+    createdAt: String!
+    updatedAt: String!
+}

@@ -1,0 +1,83 @@
+extend type Query {
+    problem(id: ID!): Problem @auth
+    problems(
+        scope: ID!
+        where: ProblemWhereInput
+        orderBy: ProblemOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Problem]! @auth
+}
+
+extend type Mutation {
+
+}
+
+input ProblemWhereInput {
+  id: ID
+  creator: String
+  title: [String!]
+  hasStory: Boolean
+  isReady: Boolean
+  visible: Boolean
+  nAccepted_lte: Int
+  nAccepted_gte: Int
+  nAttempted_lte: Int
+  nAttempted_gte: Int
+  createdAt_lte: DateTime
+  createdAt_gte: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gte: DateTime
+  # TODO: Tags?
+}
+
+enum ProblemOrderByInput {
+  title_ASC
+  title_DESC
+  nAccepted_ASC
+  nAccepted_DESC
+  nAttempted_ASC
+  nAttempted_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type Example {
+    input: String!
+    output: String!
+}
+
+type Testcase {
+    time: Int!
+    memory: Int!
+    point: Int!
+}
+
+type Problem {
+    id: ID!
+    scope: Scope!
+    creator: User!
+    title: String!
+    hasStory: Boolean!
+    story: String
+    background: String!
+    description: String!
+    inputFormat: String!
+    outputFormat: String!
+    tips: String!
+    stdAnswer: String!
+    examples: [Example!]!
+    testcases: [Testcase!]!
+    spj: String!
+    tags: [String!]!
+    isReady: Boolean!
+    visible: Boolean!
+    nAccepted: Int!
+    nAttempted: Int!
+    submissions: [Submission!]!
+    createdAt: String!
+    updatedAt: String!
+}

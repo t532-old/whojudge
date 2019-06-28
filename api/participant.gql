@@ -1,0 +1,19 @@
+extend type Query {
+    participant(id: ID!): Participant @auth
+    # participants: Searching is unsupported
+}
+
+extend type Mutation {
+    
+}
+
+type Participant {
+    id: ID!
+    scope: Scope!
+    user: User!
+    step: Int
+    skippedStep: Int
+    score: [Json!]
+    createdAt: String!
+    updatedAt: String!
+}

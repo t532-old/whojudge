@@ -1,0 +1,77 @@
+extend type Query {
+    submission(id: ID!): Submission @auth
+    submissions(
+        scope: ID!
+        where: SubmissionWhereInput
+        orderBy: SubmissionOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Submission]! @auth
+}
+
+extend type Mutation {
+
+}
+
+input SubmissionWhereInput {
+  id: ID
+  user: String
+  problem: ID
+  language: String
+  status: SubmissionStatus
+  score_lte: Int
+  score_gte: Int
+  createdAt_lte: DateTime
+  createdAt_gte: DateTime
+}
+
+enum SubmissionOrderByInput {
+  language_ASC
+  language_DESC
+  score_ASC
+  score_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+enum TestcaseStatus {
+    JUDGING,
+    ACCEPTED,
+    WRONG_ANSWER,
+    PARTIALLY_CORRECT,
+    TIME_LIMIT_EXCEEDED,
+    MEMORY_LIMIT_EXCEEDED,
+    OUTPUT_LIMIT_EXCEEDED,
+    RUNTIME_ERROR,
+    SPECIAL_JUDGE_ERROR,
+    COMPILE_ERROR,
+    UNKNOWN_ERROR,
+}
+
+type TestcaseResult {
+    time: Int!
+    memory: Int!
+    point: Int!
+    status: TestcaseStatus!
+}
+
+enum SubmissionStatus {
+    JUDGING,
+    ACCEPTED,
+    NOT_ACCEPTED,
+    COMPILE_ERR,
+}
+
+type Submission {
+    id: ID!
+    user: User!
+    problem: Problem!
+    code: String
+    language: String!
+    status: SubmissionStatus!
+    score: Int!
+    detail: [TestcaseResult!]!
+    createdAt: String!
+    updatedAt: String!
+}

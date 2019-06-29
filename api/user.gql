@@ -29,6 +29,10 @@ extend type Mutation {
         id: ID, username: String
         pass: String!
     ): User @auth @admin
+    uploadAvatar(
+        id: ID, username: String
+        file: Upload
+    ): User @auth
 }
 
 input UserWhereInput {

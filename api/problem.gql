@@ -17,6 +17,11 @@ extend type Mutation {
         data: ProblemUpdateInput
     ): Problem @auth @admin
     deleteProblem(id: ID!): Problem @auth @admin
+    uploadTestcaseFile(
+        id: ID!
+        idx: Int!
+        file: Upload!
+    ): Testcase @auth @admin
 }
 
 input ProblemWhereInput {
@@ -87,6 +92,7 @@ type Testcase {
     time: Int!
     memory: Int!
     point: Int!
+    isReady: Boolean!
 }
 
 type Problem {
@@ -94,8 +100,7 @@ type Problem {
     scope: Scope!
     creator: User!
     title: String!
-    hasStory: Boolean!
-    story: String
+    story: String!
     background: String!
     description: String!
     inputFormat: String!
@@ -106,7 +111,6 @@ type Problem {
     testcases: [Testcase!]!
     spj: String!
     tags: [String!]!
-    isReady: Boolean!
     visible: Boolean!
     nAccepted: Int!
     nAttempted: Int!

@@ -15,34 +15,34 @@ extend type Mutation {
 }
 
 input ProblemWhereInput {
-  id: ID
-  creator: String
-  title: [String!]
-  hasStory: Boolean
-  isReady: Boolean
-  visible: Boolean
-  nAccepted_lte: Int
-  nAccepted_gte: Int
-  nAttempted_lte: Int
-  nAttempted_gte: Int
-  createdAt_lte: DateTime
-  createdAt_gte: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gte: DateTime
-  # TODO: Tags?
+    id: ID
+    creator: String
+    title: [String!]
+    hasStory: Boolean
+    isReady: Boolean
+    visible: Boolean
+    nAccepted_lte: Int
+    nAccepted_gte: Int
+    nAttempted_lte: Int
+    nAttempted_gte: Int
+    createdAt_lte: DateTime
+    createdAt_gte: DateTime
+    updatedAt_lte: DateTime
+    updatedAt_gte: DateTime
+    # TODO: Tags?
 }
 
 enum ProblemOrderByInput {
-  title_ASC
-  title_DESC
-  nAccepted_ASC
-  nAccepted_DESC
-  nAttempted_ASC
-  nAttempted_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
+    title_ASC
+    title_DESC
+    nAccepted_ASC
+    nAccepted_DESC
+    nAttempted_ASC
+    nAttempted_DESC
+    createdAt_ASC
+    createdAt_DESC
+    updatedAt_ASC
+    updatedAt_DESC
 }
 
 type Example {

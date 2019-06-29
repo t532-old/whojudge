@@ -15,24 +15,24 @@ extend type Mutation {
 }
 
 input SubmissionWhereInput {
-  id: ID
-  user: String
-  problem: ID
-  language: String
-  status: SubmissionStatus
-  score_lte: Int
-  score_gte: Int
-  createdAt_lte: DateTime
-  createdAt_gte: DateTime
+    id: ID
+    user: String
+    problem: ID
+    language: String
+    status: SubmissionStatus
+    score_lte: Int
+    score_gte: Int
+    createdAt_lte: DateTime
+    createdAt_gte: DateTime
 }
 
 enum SubmissionOrderByInput {
-  language_ASC
-  language_DESC
-  score_ASC
-  score_DESC
-  createdAt_ASC
-  createdAt_DESC
+    language_ASC
+    language_DESC
+    score_ASC
+    score_DESC
+    createdAt_ASC
+    createdAt_DESC
 }
 
 enum TestcaseStatus {

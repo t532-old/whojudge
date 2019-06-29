@@ -16,30 +16,30 @@ extend type Mutation {
 }
 
 input UserWhereInput {
-  id: ID
-  username: [String!]
-  acceptedProblems: [ID!]
-  attemptedProblems: [ID!]
-  isAdmin: Boolean
-  scopes: [ID!]
-  problems: [ID!]
-  createdAt_lte: DateTime
-  createdAt_gte: DateTime
-  updatedAt_lte: DateTime
-  updatedAt_gte: DateTime
-  lastSubmitAt_lte: DateTime
-  lastSubmitAt_gte: DateTime
+    id: ID
+    username: [String!]
+    acceptedProblems: [ID!]
+    attemptedProblems: [ID!]
+    isAdmin: Boolean
+    scopes: [ID!]
+    problems: [ID!]
+    createdAt_lte: DateTime
+    createdAt_gte: DateTime
+    updatedAt_lte: DateTime
+    updatedAt_gte: DateTime
+    lastSubmitAt_lte: DateTime
+    lastSubmitAt_gte: DateTime
 }
 
 enum UserOrderByInput {
-  username_ASC
-  username_DESC
-  createdAt_ASC
-  createdAt_DESC
-  updatedAt_ASC
-  updatedAt_DESC
-  lastSubmitAt_ASC
-  lastSubmitAt_DESC
+    username_ASC
+    username_DESC
+    createdAt_ASC
+    createdAt_DESC
+    updatedAt_ASC
+    updatedAt_DESC
+    lastSubmitAt_ASC
+    lastSubmitAt_DESC
 }
 
 type Token {

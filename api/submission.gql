@@ -11,7 +11,12 @@ extend type Query {
 }
 
 extend type Mutation {
-
+    createSubmission(
+        problem: ID!
+        code: String!
+        language: String!
+    ): Submission! @auth
+    deleteSubmission(id: ID!): Submission @auth @admin
 }
 
 input SubmissionWhereInput {

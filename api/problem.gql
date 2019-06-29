@@ -11,7 +11,12 @@ extend type Query {
 }
 
 extend type Mutation {
-
+    createProblem(scope: ID!): Problem! @auth @admin
+    updateProblem(
+        id: ID!
+        data: ProblemUpdateInput
+    ): Problem @auth @admin
+    deleteProblem(id: ID!): Problem @auth @admin
 }
 
 input ProblemWhereInput {
@@ -43,6 +48,34 @@ enum ProblemOrderByInput {
     createdAt_DESC
     updatedAt_ASC
     updatedAt_DESC
+}
+
+input ExampleUpdateInput {
+    input: String!
+    output: String!
+}
+
+input TestcaseUpdateInput {
+    time: Int!
+    memory: Int!
+    point: Int!
+}
+
+input ProblemUpdateInput {
+    scope: ID
+    title: String
+    story: String
+    background: String
+    description: String
+    inputFormat: String
+    outputFormat: String
+    tips: String
+    stdAnswer: String
+    examples: [ExampleUpdateInput!]
+    testcases: [TestcaseUpdateInput!]
+    spj: String
+    tags: [String!]
+    visible: Boolean
 }
 
 type Example {

@@ -10,7 +10,12 @@ extend type Query {
 }
 
 extend type Mutation {
-
+    createScope(): Scope! @auth @admin
+    updateScope(
+        id: ID!
+        data: ScopeUpdateInput
+    ): Scope @auth @admin
+    deleteScope(id: ID!): Scope @auth @admin
 }
 
 input ScopeWhereInput {
@@ -45,6 +50,20 @@ enum ScopeOrderByInput {
     updatedAt_DESC
 }
 
+input ScopeUpdateInput {
+    title: String
+    isSorted: Boolean
+    sortedProblems: [ID!]
+    isLinear: Boolean
+    skippable: Int
+    isContest: Boolean
+    contestMode: String
+    description: String
+    visible: Boolean
+    from: Int
+    to: Int
+}
+
 type Contest {
     contestMode: String
     sortedParticipants: [Participant!]
@@ -56,7 +75,7 @@ type Scope {
     title: String!
     problems: [Problem!]!
     isSorted: Boolean!
-    sortedProblems: [Problem!]!
+    sortedProblems: [Problem!]
     participants: [Participant!]!
     isLinear: Boolean!
     skippable: Int

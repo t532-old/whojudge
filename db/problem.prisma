@@ -20,7 +20,6 @@ type Problem {
         link: INLINE
     )
     title: String!
-    hasStory: Boolean!
     story: String
     background: String!
     description: String!

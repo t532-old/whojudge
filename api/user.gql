@@ -1,7 +1,7 @@
 extend type Query {
     token(id: ID!): Token
     # tokens: Searching is unsupported
-    user(id: ID!): User @auth
+    user(id: ID, username: String): User @auth
     users(
         where: UserWhereInput
         orderBy: UserOrderByInput
@@ -12,7 +12,23 @@ extend type Query {
 }
 
 extend type Mutation {
-
+    createToken(
+        id: ID, username: String
+        pass: String!
+    ): Token!
+    deleteToken(id: ID!): Token
+    createUser(
+        id: ID, username: String
+        pass: String!
+    ): User! # TODO: CAPTCHA
+    updateUser(
+        id: ID, username: String
+        data: UserUpdateInput!
+    ): User @auth
+    deleteUser(
+        id: ID, username: String
+        pass: String!
+    ): User @auth @admin
 }
 
 input UserWhereInput {
@@ -40,6 +56,12 @@ enum UserOrderByInput {
     updatedAt_DESC
     lastSubmitAt_ASC
     lastSubmitAt_DESC
+}
+
+input UserUpdateInput {
+    username: String
+    introduction: String
+    isAdmin: String
 }
 
 type Token {

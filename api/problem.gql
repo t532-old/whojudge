@@ -39,7 +39,7 @@ input ProblemWhereInput {
     createdAt_gte: DateTime
     updatedAt_lte: DateTime
     updatedAt_gte: DateTime
-    # TODO: Tags?
+    tags: [String!]
 }
 
 enum ProblemOrderByInput {

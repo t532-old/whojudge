@@ -26,15 +26,15 @@ input ScopeWhereInput {
     isLinear: Boolean
     isContest: Boolean
     visible: Boolean
-    from_lte: Int
-    from_gte: Int
-    to_lte: Int
-    to_gte: Int
-    createdAt_lte: String
-    createdAt_gte: String
-    updatedAt: String
-    updatedAt_lte: String
-    updatedAt_gte: String
+    from_lte: DateTime
+    from_gte: DateTime
+    to_lte: DateTime
+    to_gte: DateTime
+    createdAt_lte: DateTime
+    createdAt_gte: DateTime
+    updatedAt: DateTime
+    updatedAt_lte: DateTime
+    updatedAt_gte: DateTime
 }
 
 enum ScopeOrderByInput {
@@ -60,8 +60,8 @@ input ScopeUpdateInput {
     contestMode: String
     description: String
     visible: Boolean
-    from: Int
-    to: Int
+    from: DateTime
+    to: DateTime
 }
 
 type Contest {
@@ -83,8 +83,8 @@ type Scope {
     contest: Contest
     description: String!
     visible: Boolean!
-    from: Int!
-    to: Int!
-    createdAt: String!
-    updatedAt: String!
+    from: DateTime
+    to: DateTime
+    createdAt: DateTime!
+    updatedAt: DateTime!
 }

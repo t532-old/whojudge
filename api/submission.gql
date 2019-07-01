@@ -27,8 +27,8 @@ input SubmissionWhereInput {
     status: SubmissionStatus
     score_lte: Int
     score_gte: Int
-    createdAt_lte: String
-    createdAt_gte: String
+    createdAt_lte: DateTime
+    createdAt_gte: DateTime
 }
 
 enum SubmissionOrderByInput {
@@ -77,6 +77,6 @@ type Submission {
     status: SubmissionStatus!
     score: Int!
     detail: [TestcaseResult!]!
-    createdAt: String!
-    updatedAt: String!
+    createdAt: DateTime!
+    updatedAt: DateTime!
 }

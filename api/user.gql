@@ -35,8 +35,8 @@ extend type Mutation {
     ): User @auth @admin
     uploadAvatar(
         id: ID!
-        file: Upload
-    ): User @auth
+        file: Upload!
+    ): File @auth
 }
 
 input UserWhereInput {
@@ -47,12 +47,12 @@ input UserWhereInput {
     isAdmin: Boolean
     scopes: [ID!]
     problems: [ID!]
-    createdAt_lte: DateTime
-    createdAt_gte: DateTime
-    updatedAt_lte: DateTime
-    updatedAt_gte: DateTime
-    lastSubmitAt_lte: DateTime
-    lastSubmitAt_gte: DateTime
+    createdAt_lte: String
+    createdAt_gte: String
+    updatedAt_lte: String
+    updatedAt_gte: String
+    lastSubmitAt_lte: String
+    lastSubmitAt_gte: String
 }
 
 enum UserOrderByInput {

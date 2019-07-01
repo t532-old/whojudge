@@ -21,7 +21,7 @@ extend type Mutation {
         id: ID!
         idx: Int!
         file: Upload!
-    ): Testcase @auth @admin
+    ): File @auth @admin
 }
 
 input ProblemWhereInput {
@@ -35,10 +35,10 @@ input ProblemWhereInput {
     nAccepted_gte: Int
     nAttempted_lte: Int
     nAttempted_gte: Int
-    createdAt_lte: DateTime
-    createdAt_gte: DateTime
-    updatedAt_lte: DateTime
-    updatedAt_gte: DateTime
+    createdAt_lte: String
+    createdAt_gte: String
+    updatedAt_lte: String
+    updatedAt_gte: String
     tags: [String!]
 }
 

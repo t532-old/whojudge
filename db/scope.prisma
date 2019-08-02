@@ -26,8 +26,8 @@ type Scope {
     contest: Contest
     description: String!
     visible: Boolean!
-    from: Int!
-    to: Int!
+    from: DateTime
+    to: DateTime
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
 }

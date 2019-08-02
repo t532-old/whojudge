@@ -9,4 +9,4 @@ databaseType: document
 secret: __YOUR_SECRET_HERE__
 generate:
     - generator: typescript-client
-      output: ./node_modules/prisma-client/
+      output: ./src/prisma-client/

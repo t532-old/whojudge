@@ -18,7 +18,7 @@ extend type Mutation {
     ): Token!
     deleteToken(id: ID!): Token
     createUser(
-        id: ID!
+        username: String!
         pass: String!
     ): User! # TODO: CAPTCHA
     updateUser(
@@ -31,7 +31,6 @@ extend type Mutation {
     ): User @auth @admin
     deleteUser(
         id: ID!
-        pass: String!
     ): User @auth @admin
     uploadAvatar(
         id: ID!
@@ -80,13 +79,47 @@ type User {
     id: ID!
     username: String!
     introduction: String!
-    acceptedProblems: [Problem!]!
-    attemptedProblems: [Problem!]!
+    acceptedProblems(
+        scope: ID!
+        where: ProblemWhereInput
+        orderBy: ProblemOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Problem!]!
+    attemptedProblems(
+        scope: ID!
+        where: ProblemWhereInput
+        orderBy: ProblemOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Problem!]!
     isAdmin: Boolean!
-    scopes: [Scope!]!
+    scopes(
+        where: ScopeWhereInput
+        orderBy: ScopeOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Scope!]!
     participants: [Participant!]!
-    submissions: [Submission!]!
-    problems: [Problem!]!
+    submissions(
+        scope: ID!
+        where: SubmissionWhereInput
+        orderBy: SubmissionOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Submission!]!
+    problems(
+        scope: ID!
+        where: ProblemWhereInput
+        orderBy: ProblemOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Problem!]!
     createdAt: String!
     updatedAt: String!
     lastSubmitAt: String!

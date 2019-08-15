@@ -1,18 +1,18 @@
-import { UserNullablePromise } from '../prisma-client'
-import { GraphQLResolverFunction } from '..'
-import { map, mapfn } from '../util'
+import { map, maplnk } from '../util'
 
-export const User: { [key: string]: GraphQLResolverFunction<UserNullablePromise> } = {
+const lnk = _ => maplnk(_, 'user')
+
+export const User = {
     id: map('id'),
     username: map('username'),
     introduction: map('introduction'),
-    acceptedProblems: mapfn('acceptedProblems'),
-    attemptedProblems: mapfn('attemptedProblems'),
+    acceptedProblems: lnk('acceptedProblems'),
+    attemptedProblems: lnk('attemptedProblems'),
     isAdmin: map('isAdmin'),
-    scopes: mapfn('scopes'),
-    participants: mapfn('participants'),
-    submissions: mapfn('submissions'),
-    problems: mapfn('problems'),
+    scopes: lnk('scopes'),
+    participants: lnk('participants'),
+    submissions: lnk('submissions'),
+    problems: lnk('problems'),
     createdAt: map('createdAt'),
     updatedAt: map('updatedAt'),
     lastSubmitAt: map('lastSubmitAt'),

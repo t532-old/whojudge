@@ -7,6 +7,7 @@ extend type Query {
         first: Int
         last: Int
     ): [Scope]! @auth
+    sortedParticipants(id: ID!): [Participant!] @auth
 }
 
 extend type Mutation {
@@ -21,20 +22,22 @@ extend type Mutation {
 input ScopeWhereInput {
     id: ID
     creator: String
-    title: [String!]
+    title_contains: String
+    OR: [ScopeWhereInput!]
+    AND: [ScopeWhereInput!]
     isSorted: Boolean
     isLinear: Boolean
     isContest: Boolean
     visible: Boolean
-    from_lte: Int
-    from_gte: Int
-    to_lte: Int
-    to_gte: Int
-    createdAt_lte: String
-    createdAt_gte: String
+    from_lte: DateTime
+    from_gte: DateTime
+    to_lte: DateTime
+    to_gte: DateTime
+    createdAt_lte: DateTime
+    createdAt_gte: DateTime
     updatedAt: String
-    updatedAt_lte: String
-    updatedAt_gte: String
+    updatedAt_lte: DateTime
+    updatedAt_gte: DateTime
 }
 
 enum ScopeOrderByInput {
@@ -53,7 +56,6 @@ enum ScopeOrderByInput {
 input ScopeUpdateInput {
     title: String
     isSorted: Boolean
-    sortedProblems: [ID!]
     isLinear: Boolean
     skippable: Int
     isContest: Boolean
@@ -64,27 +66,21 @@ input ScopeUpdateInput {
     to: Int
 }
 
-type Contest {
-    contestMode: String
-    sortedParticipants: [Participant!]
-}
-
 type Scope {
     id: ID!
     creator: User!
     title: String!
     problems: [Problem!]!
     isSorted: Boolean!
-    sortedProblems: [Problem!]
     participants: [Participant!]!
     isLinear: Boolean!
     skippable: Int
     isContest: Boolean!
-    contest: Contest
+    contestMode: String
     description: String!
     visible: Boolean!
-    from: Int!
-    to: Int!
+    from: DateTime
+    to: DateTime
     createdAt: String!
     updatedAt: String!
 }

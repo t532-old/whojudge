@@ -1,11 +1,3 @@
-type Contest @embedded {
-    contestMode: String
-    sortedParticipants: [Participant!] @relation(
-        name: "SortedParticipantsOfScope"
-        link: INLINE
-    )
-}
-
 type Scope {
     id: ID! @id
     creator: User! @relation(
@@ -15,15 +7,10 @@ type Scope {
     title: String!
     problems: [Problem!]! @relation(name: "ProblemOfScope")
     isSorted: Boolean!
-    sortedProblems: [Problem!] @relation(
-        name: "SortedProblemsOfScope"
-        link: INLINE
-    )
     participants: [Participant!]! @relation(name: "ParticipantOfScope")
     isLinear: Boolean!
     skippable: Int
     isContest: Boolean!
-    contest: Contest
     description: String!
     visible: Boolean!
     from: DateTime

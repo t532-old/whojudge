@@ -1,8 +1,6 @@
-import { TokenNullablePromise } from '../prisma-client'
-import { GraphQLResolverFunction } from '..'
-import { map, mapfn } from '../util'
+import { map, maplnk } from '../util'
 
-export const Token: { [key: string]: GraphQLResolverFunction<TokenNullablePromise> } = {
+export const Token = {
     id: map('id'),
-    user: mapfn('user'),
+    user: maplnk('user', 'token'),
 }

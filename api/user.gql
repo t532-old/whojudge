@@ -32,26 +32,25 @@ extend type Mutation {
     deleteUser(
         id: ID!
     ): User @auth @admin
-    uploadAvatar(
-        id: ID!
-        file: Upload!
-    ): File @auth
+    uploadAvatar(file: Upload!): File @auth
 }
 
 input UserWhereInput {
     id: ID
-    username: [String!]
-    acceptedProblems: [ID!]
-    attemptedProblems: [ID!]
+    username_contains: String
+    OR: [UserWhereInput!]
+    AND: [UserWhereInput!]
+    acceptedProblems_some: ProblemWhereInput
+    attemptedProblems_some: ProblemWhereInput
     isAdmin: Boolean
-    scopes: [ID!]
-    problems: [ID!]
-    createdAt_lte: String
-    createdAt_gte: String
-    updatedAt_lte: String
-    updatedAt_gte: String
-    lastSubmitAt_lte: String
-    lastSubmitAt_gte: String
+    scopes_some: ScopeWhereInput
+    problems_some: ProblemWhereInput
+    createdAt_lte: DateTime
+    createdAt_gte: DateTime
+    updatedAt_lte: DateTime
+    updatedAt_gte: DateTime
+    lastSubmitAt_lte: DateTime
+    lastSubmitAt_gte: DateTime
 }
 
 enum UserOrderByInput {

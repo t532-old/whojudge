@@ -27,7 +27,9 @@ extend type Mutation {
 input ProblemWhereInput {
     id: ID
     creator: String
-    title: [String!]
+    title_contains: String
+    OR: [ProblemWhereInput!]
+    AND: [ProblemWhereInput!]
     hasStory: Boolean
     isReady: Boolean
     visible: Boolean
@@ -35,10 +37,10 @@ input ProblemWhereInput {
     nAccepted_gte: Int
     nAttempted_lte: Int
     nAttempted_gte: Int
-    createdAt_lte: String
-    createdAt_gte: String
-    updatedAt_lte: String
-    updatedAt_gte: String
+    createdAt_lte: DateTime
+    createdAt_gte: DateTime
+    updatedAt_lte: DateTime
+    updatedAt_gte: DateTime
     tags: [String!]
 }
 
@@ -117,4 +119,5 @@ type Problem {
     submissions: [Submission!]!
     createdAt: String!
     updatedAt: String!
+    order: Int!
 }

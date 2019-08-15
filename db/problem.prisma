@@ -36,6 +36,7 @@ type Problem {
     nAccepted: Int!
     nAttempted: Int!
     submissions: [Submission!]! @relation(name: "SubmissionOfProblem")
+    order: Int!
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
 }

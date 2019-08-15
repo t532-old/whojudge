@@ -1,5 +1,5 @@
 import { prisma, String } from '../../prisma-client'
-import { WhojudgeContext } from '../..'
+import { WhojudgeContext } from '../../context'
 
 interface UpdateUserInput {
     username: String
@@ -7,7 +7,7 @@ interface UpdateUserInput {
 }
 
 export async function updateUser(_, args: UpdateUserInput, ctx: WhojudgeContext) {
-    prisma.updateUser({
+    return prisma.updateUser({
         where: await ctx.user,
         data: args,
     })

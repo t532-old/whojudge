@@ -4,6 +4,7 @@
   "description": "A Lightweight Online Judge System.",
   "main": "dist/index.js",
   "dependencies": {
+    "@whojudge/alice": "^1.0.0",
     "apollo-server-koa": "^2.6.7",
     "bcrypt": "^3.0.6",
     "graphql": "^14.4.2",

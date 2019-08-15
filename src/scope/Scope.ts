@@ -8,7 +8,6 @@ export const Scope = {
     title: map('title'),
     problems: lnk('problems'),
     isSorted: map('isSorted'),
-    sortedProblems: lnk('sortedProblems'),
     participants: lnk('participants'),
     isLinear: map('isLinear'),
     skippable: map('skippable'),

@@ -3,6 +3,7 @@ import { ApolloServer } from 'apollo-server-koa'
 import { promises as fs } from 'fs'
 import resolvers from './resolvers'
 import { WhojudgeContext, context } from './context'
+import { AuthDirective, AdminDirective } from './util'
 
 void async function main() {
     const app = new Koa()
@@ -17,6 +18,10 @@ void async function main() {
         ].map(name =>
             fs.readFile(`api/${name}.gql`, 'utf-8'))),
         resolvers,
+        schemaDirectives: {
+            auth: AuthDirective,
+            admin: AdminDirective,
+        },
         context,
         introspection: true,
         playground: true,

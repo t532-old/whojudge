@@ -7,8 +7,6 @@ export interface WhojudgeContext {
 
 export function context({ ctx: { request: { header } } }) {
     const token = header['authorization']
-    return {
-        token,
-        user: prisma.token({ id: token }).user()
-    }
+    const user = prisma.token({ id: token }).user()
+    return { token, user }
 }

@@ -21,10 +21,7 @@ extend type Mutation {
         username: String!
         pass: String!
     ): User! # TODO: CAPTCHA
-    updateUser(
-        id: ID!
-        data: UserUpdateInput!
-    ): User @auth
+    updateUser(data: UserUpdateInput!): User @auth
     setUserAdmin(
         id: ID!
         isAdmin: Boolean!

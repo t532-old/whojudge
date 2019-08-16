@@ -10,7 +10,6 @@ A Lightweight Online Judge System. WIP
 
 ## Security
 - Specify a **Prisma Management API Secret** in `docker-compose.yml`, replace `__YOUR_SECRET_HERE__`.
-    - Also, set it as the value of the environment variable `PRISMA_MANAGEMENT_API_SECRET`.
 - Specify **Database Root Username & Password** in `docker-compose.yml`, replace `__YOUR_DB_USERNAME/PASSWORD__`.
 - Specify a **Prisma API Secret** in `prisma.yml`, replace `__YOUR_SECRET_HERE__`.
 
@@ -18,5 +17,8 @@ A Lightweight Online Judge System. WIP
 ```sh
 npm install
 docker-compose up -d
-npm start
+sudo PRISMA_MANAGEMENT_API_SECRET=__YOUR_SECRET_HERE__ npm start
 ```
+
+## Config
+Edit `src/config.ts`; Refer to [alice](https://github.com/sfls/alice).

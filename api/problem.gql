@@ -21,7 +21,13 @@ extend type Mutation {
         id: ID!
         idx: Int!
         file: Upload!
+        type: TestcaseFileType!
     ): File @auth @admin
+}
+
+enum TestcaseFileType {
+    IN
+    OUT
 }
 
 input ProblemWhereInput {

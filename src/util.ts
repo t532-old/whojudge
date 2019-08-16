@@ -15,10 +15,7 @@ export class AuthDirective extends SchemaDirectiveVisitor {
     public visitFieldDefinition(field: GraphQLField<any, any>) {
         const { resolve } = field
         async function newResolve(_1, _2, ctx: WhojudgeContext, _4) {
-            let user: User
-            try { user = await ctx.user }
-            catch { throw new ApolloError('No Authorization', 'WHOJ_NAUTH') }
-            if (user === null)
+            if (ctx.user === null)
                 { throw new ApolloError('No Authorization', 'WHOJ_NAUTH') }
             return resolve(_1, _2, ctx, _4)
         }
@@ -30,10 +27,7 @@ export class AdminDirective extends SchemaDirectiveVisitor {
     public visitFieldDefinition(field: GraphQLField<any, any>) {
         const { resolve } = field
         async function newResolve(_1, _2, ctx: WhojudgeContext, _4) {
-            let user: User
-            try { user = await ctx.user }
-            catch { throw new ApolloError('Not Admin', 'WHOJ_NADMIN') }
-            if (user.isAdmin === false)
+            if (!ctx.user || ctx.user.isAdmin === false)
                 { throw new ApolloError('Not Admin', 'WHOJ_NADMIN') }
             return resolve(_1, _2, ctx, _4)
         }

@@ -116,7 +116,14 @@ type Problem {
     visible: Boolean!
     nAccepted: Int!
     nAttempted: Int!
-    submissions: [Submission!]!
+    submissions(
+        scope: ID!
+        where: SubmissionWhereInput
+        orderBy: SubmissionOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Submission!]!
     createdAt: String!
     updatedAt: String!
     order: Int!

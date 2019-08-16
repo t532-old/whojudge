@@ -1,12 +1,14 @@
-import { UserNullablePromise, prisma } from './prisma-client'
+import { User, prisma } from './prisma-client'
 
 export interface WhojudgeContext {
     token: string
-    user: UserNullablePromise
+    user: User
 }
 
-export function context({ ctx: { request: { header } } }) {
+export async function context({ ctx: { request: { header } } }) {
     const token = header['authorization']
-    const user = prisma.token({ id: token }).user()
+    let user: User
+    try { user = await prisma.token({ id: token }).user() }
+    catch { user = null }
     return { token, user }
 }

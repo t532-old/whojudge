@@ -70,9 +70,16 @@ type Scope {
     id: ID!
     creator: User!
     title: String!
-    problems: [Problem!]!
+    problems(
+        scope: ID!
+        where: ProblemWhereInput
+        orderBy: ProblemOrderByInput
+        skip: Int
+        first: Int
+        last: Int
+    ): [Problem!]!
     isSorted: Boolean!
-    participants: [Participant!]!
+    participants(sorted: Boolean! = false): [Participant!]!
     isLinear: Boolean!
     skippable: Int
     isContest: Boolean!

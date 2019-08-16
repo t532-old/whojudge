@@ -63,3 +63,7 @@ typings/
 # compiled JS
 dist/
 src/prisma-client/
+
+# data path
+cache/
+upload/

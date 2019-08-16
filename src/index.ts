@@ -4,6 +4,8 @@ import { promises as fs } from 'fs'
 import resolvers from './resolvers'
 import { WhojudgeContext, context } from './context'
 import { AuthDirective, AdminDirective } from './util'
+import { init } from '@whojudge/alice'
+import aliceConfig from './config'
 
 void async function main() {
     const app = new Koa()
@@ -27,6 +29,7 @@ void async function main() {
         playground: true,
     })
     server.applyMiddleware({ app })
+    init(aliceConfig)
     app.listen(8080)
 }()
 

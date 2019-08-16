@@ -8,7 +8,7 @@ interface UpdateUserInput {
 
 export async function updateUser(_, args: UpdateUserInput, ctx: WhojudgeContext) {
     return prisma.updateUser({
-        where: await ctx.user,
+        where: { id: ctx.user.id },
         data: args,
     })
 }

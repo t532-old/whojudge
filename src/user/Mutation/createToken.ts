@@ -1,17 +1,15 @@
-import { prisma, ID_Input, String } from '../../prisma-client'
-import nanoid from 'nanoid'
+import { prisma, String } from '../../prisma-client'
 import { compare } from 'bcrypt'
 
 interface CreateTokenInput {
-    id: ID_Input
+    username: String
     pass: String
 }
 
 export async function createToken(_, args: CreateTokenInput) {
-    const user = await prisma.user({ id: args.id })
+    const user = await prisma.user({ username: args.username })
     if (user !== null && await compare(args.pass, user.passwordHash)) {
         return prisma.createToken({
-            id: nanoid(),
             user: { connect: { id: user.id } },
         })
     }

@@ -1,12 +1,12 @@
 import { prisma, ID_Input } from '../../prisma-client'
-import { WhojudgeContext } from '../../context'
+import { WhojudgeContext } from '../../context';
 
-interface ScopeInput {
+interface ProblemInput {
     id: ID_Input
 }
 
-export async function scope(_, args: ScopeInput, ctx: WhojudgeContext) {
-    const result = await prisma.scope(args)
+export async function problem(_, args: ProblemInput, ctx: WhojudgeContext) {
+    const result = await prisma.problem(args)
     if (ctx.user.isAdmin)
         { return result }
     else if (!result || result.visible)

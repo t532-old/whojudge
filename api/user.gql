@@ -13,7 +13,7 @@ extend type Query {
 
 extend type Mutation {
     createToken(
-        id: ID!
+        username: String!
         pass: String!
     ): Token!
     deleteToken(id: ID!): Token

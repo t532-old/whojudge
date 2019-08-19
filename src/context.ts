@@ -1,14 +1,21 @@
-import { User, prisma } from './prisma-client'
+import { User, prisma, UserNullablePromise, Scope, ScopeNullablePromise, Problem, ProblemNullablePromise, Participant, ParticipantNullablePromise, Submission, SubmissionNullablePromise } from './prisma-client'
 
-export interface WhojudgeContext {
+export interface WhojudgeContext<T = void, Tp = void> {
     token: string
-    user: User
+    user?: User
+    user_s?: UserNullablePromise
+    scope?: Scope
+    scope_s?: ScopeNullablePromise
+    problem?: Problem
+    problem_s?: ProblemNullablePromise
+    participant?: Participant
+    participant_s?: ParticipantNullablePromise
+    submission?: Submission
+    submission_s?: SubmissionNullablePromise
+    topic?: T
+    topic_s?: Tp
 }
 
 export async function context({ ctx: { request: { header } } }) {
-    const token = header['authorization']
-    let user: User
-    try { user = await prisma.token({ id: token }).user() }
-    catch { user = null }
-    return { token, user }
+    return { token: header['authorization'] }
 }

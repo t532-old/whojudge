@@ -1,22 +1,34 @@
 extend type Query {
-    scope(id: ID!): Scope @auth
+    scope(id: ID!): Scope
+        @filterVisibility
+        @retrieve(collection: "scope")
+        @ifAuth
     scopes(
         where: ScopeWhereInput
         orderBy: ScopeOrderByInput
         skip: Int
         first: Int
         last: Int
-    ): [Scope]! @auth
-    sortedParticipants(id: ID!): [Participant!] @auth
+    ): [Scope]!
+        @filterVisibility
+        @ifAuth
+    sortedParticipants(id: ID!): [Participant!]
+        @ifAuth
 }
 
 extend type Mutation {
-    createScope: Scope! @auth @admin
+    createScope: Scope!
+        @ifAdmin
+        @ifAuth
     updateScope(
         id: ID!
         data: ScopeUpdateInput
-    ): Scope @auth @admin
-    deleteScope(id: ID!): Scope @auth @admin
+    ): Scope
+        @ifAdmin
+        @ifAuth
+    deleteScope(id: ID!): Scope
+        @ifAdmin
+        @ifAuth
 }
 
 input ScopeWhereInput {
@@ -25,7 +37,6 @@ input ScopeWhereInput {
     title_contains: String
     OR: [ScopeWhereInput!]
     AND: [ScopeWhereInput!]
-    isSorted: Boolean
     isLinear: Boolean
     isContest: Boolean
     visible: Boolean
@@ -55,7 +66,6 @@ enum ScopeOrderByInput {
 
 input ScopeUpdateInput {
     title: String
-    isSorted: Boolean
     isLinear: Boolean
     skippable: Int
     isContest: Boolean
@@ -71,14 +81,15 @@ type Scope {
     creator: User!
     title: String!
     problems(
-        scope: ID!
         where: ProblemWhereInput
         orderBy: ProblemOrderByInput
         skip: Int
         first: Int
         last: Int
     ): [Problem!]!
-    isSorted: Boolean!
+        @filterParticipated
+        @filterScopeStarted
+        @filterVisibility
     participants(sorted: Boolean! = false): [Participant!]!
     isLinear: Boolean!
     skippable: Int

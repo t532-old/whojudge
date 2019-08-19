@@ -1,14 +1,16 @@
 extend type Query {
     token(id: ID!): Token
     # tokens: Searching is unsupported
-    user(id: ID!): User @auth
+    user(id: ID!): User
+        @ifAuth
     users(
         where: UserWhereInput
         orderBy: UserOrderByInput
         skip: Int
         first: Int
         last: Int
-    ): [User]! @auth
+    ): [User]!
+        @ifAuth
 }
 
 extend type Mutation {
@@ -21,15 +23,21 @@ extend type Mutation {
         username: String!
         pass: String!
     ): User! # TODO: CAPTCHA
-    updateUser(data: UserUpdateInput!): User @auth
+    updateUser(data: UserUpdateInput!): User
+        @ifAuth
     setUserAdmin(
         id: ID!
         isAdmin: Boolean!
-    ): User @auth @admin
+    ): User
+        @ifAdmin
+        @ifAuth
     deleteUser(
         id: ID!
-    ): User @auth @admin
-    uploadAvatar(file: Upload!): File @auth
+    ): User
+        @ifAdmin
+        @ifAuth
+    uploadAvatar(file: Upload!): File
+        @ifAuth
 }
 
 input UserWhereInput {
@@ -75,47 +83,8 @@ type User {
     id: ID!
     username: String!
     introduction: String!
-    acceptedProblems(
-        scope: ID!
-        where: ProblemWhereInput
-        orderBy: ProblemOrderByInput
-        skip: Int
-        first: Int
-        last: Int
-    ): [Problem!]!
-    attemptedProblems(
-        scope: ID!
-        where: ProblemWhereInput
-        orderBy: ProblemOrderByInput
-        skip: Int
-        first: Int
-        last: Int
-    ): [Problem!]!
     isAdmin: Boolean!
-    scopes(
-        where: ScopeWhereInput
-        orderBy: ScopeOrderByInput
-        skip: Int
-        first: Int
-        last: Int
-    ): [Scope!]!
     participants: [Participant!]!
-    submissions(
-        scope: ID!
-        where: SubmissionWhereInput
-        orderBy: SubmissionOrderByInput
-        skip: Int
-        first: Int
-        last: Int
-    ): [Submission!]!
-    problems(
-        scope: ID!
-        where: ProblemWhereInput
-        orderBy: ProblemOrderByInput
-        skip: Int
-        first: Int
-        last: Int
-    ): [Problem!]!
     createdAt: String!
     updatedAt: String!
     lastSubmitAt: String!

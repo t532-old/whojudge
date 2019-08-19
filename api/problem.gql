@@ -1,5 +1,11 @@
 extend type Query {
-    problem(id: ID!): Problem @auth
+    problem(id: ID!): Problem
+        @filterParticipated
+        @filterScopeStarted
+        @filterVisibility
+        @inferScope
+        @retrieve(collection: "problem")
+        @ifAuth
     problems(
         scope: ID!
         where: ProblemWhereInput
@@ -7,22 +13,36 @@ extend type Query {
         skip: Int
         first: Int
         last: Int
-    ): [Problem]! @auth
+    ): [Problem]!
+        @filterParticipated
+        @filterScopeStarted
+        @filterVisibility
+        @inferScope(array: true)
+        @ifAuth
 }
 
 extend type Mutation {
-    createProblem(scope: ID!): Problem! @auth @admin
+    createProblem(scope: ID!): Problem!
+        @inferScope
+        @ifAdmin
+        @ifAuth
     updateProblem(
         id: ID!
         data: ProblemUpdateInput
-    ): Problem @auth @admin
-    deleteProblem(id: ID!): Problem @auth @admin
+    ): Problem
+        @ifAdmin
+        @ifAuth
+    deleteProblem(id: ID!): Problem
+        @ifAdmin
+        @ifAuth
     uploadTestcaseFile(
         id: ID!
         idx: Int!
         file: Upload!
         type: TestcaseFileType!
-    ): File @auth @admin
+    ): File
+        @ifAdmin
+        @ifAuth
 }
 
 enum TestcaseFileType {
@@ -48,6 +68,9 @@ input ProblemWhereInput {
     updatedAt_lte: DateTime
     updatedAt_gte: DateTime
     tags: [String!]
+    order: Int
+    order_lte: Int
+    order_gte: Int
 }
 
 enum ProblemOrderByInput {
@@ -61,6 +84,8 @@ enum ProblemOrderByInput {
     createdAt_DESC
     updatedAt_ASC
     updatedAt_DESC
+    order_ASC
+    order_DESC
 }
 
 input ExampleUpdateInput {
@@ -106,6 +131,7 @@ type Testcase {
 type Problem {
     id: ID!
     scope: Scope!
+        @filterVisibility
     creator: User!
     title: String!
     story: String!
@@ -123,13 +149,13 @@ type Problem {
     nAccepted: Int!
     nAttempted: Int!
     submissions(
-        scope: ID!
         where: SubmissionWhereInput
         orderBy: SubmissionOrderByInput
         skip: Int
         first: Int
         last: Int
     ): [Submission!]!
+        @filterScopeEnded
     createdAt: String!
     updatedAt: String!
     order: Int!

@@ -6,11 +6,11 @@ type Scope {
     )
     title: String!
     problems: [Problem!]! @relation(name: "ProblemOfScope")
-    isSorted: Boolean!
     participants: [Participant!]! @relation(name: "ParticipantOfScope")
     isLinear: Boolean!
     skippable: Int
     isContest: Boolean!
+    contestMode: String
     description: String!
     visible: Boolean!
     from: DateTime

@@ -35,6 +35,10 @@ int main(int argc, char *argv[]) {
 `
 
 export async function createProblem(_1, args: CreateProblemInput, ctx: WhojudgeContext) {
+    const problemCount = await prisma
+        .problemsConnection({ where: { scope: { id: args.scope } } })
+        .aggregate()
+        .count()
     const result = await prisma.createProblem({
         creator: { connect: { id: ctx.user.id } },
         scope: { connect: { id: args.scope } },
@@ -53,7 +57,7 @@ export async function createProblem(_1, args: CreateProblemInput, ctx: WhojudgeC
         visible: false,
         nAccepted: 0,
         nAttempted: 0,
-        order: -1,
+        order: problemCount,
     })
     updateSpecialJudge(result.id, createReadStream(DEFAULT_SPECIALJUDGE))
     return result

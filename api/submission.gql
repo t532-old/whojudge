@@ -1,13 +1,24 @@
 extend type Query {
-    submission(id: ID!): Submission @auth
+    submission(id: ID!): Submission
+        @filterParticipated
+        @filterScopeEnded
+        @inferScope
+        @inferProblem
+        @retrieve(collection: "submission")
+        @ifAuth
     submissions(
-        scope: ID!
+        problem: ID!
         where: SubmissionWhereInput
         orderBy: SubmissionOrderByInput
         skip: Int
         first: Int
         last: Int
-    ): [Submission]! @auth
+    ): [Submission]!
+        @filterParticipated
+        @filterScopeEnded
+        @inferScope(array: true)
+        @inferProblem(array: true)
+        @ifAuth
 }
 
 extend type Mutation {
@@ -15,14 +26,18 @@ extend type Mutation {
         problem: ID!
         code: String!
         language: String!
-    ): Submission! @auth
-    deleteSubmission(id: ID!): Submission @auth @admin
+    ): Submission!
+        @ifParticipated
+        @ifScopeStarted
+        @ifScopeNotEnded
+        @inferScope
+        @inferProblem
+        @ifAuth
 }
 
 input SubmissionWhereInput {
     id: ID
     user: String
-    problem: ID
     OR: [SubmissionWhereInput!]
     AND: [SubmissionWhereInput!]
     language: String
@@ -67,13 +82,16 @@ enum SubmissionStatus {
     JUDGING,
     ACCEPTED,
     NOT_ACCEPTED,
-    COMPILE_ERR,
+    ERROR,
 }
 
 type Submission {
     id: ID!
     user: User!
     problem: Problem!
+        @filterParticipated
+        @filterScopeStarted
+        @filterVisibility
     code: String
     language: String!
     status: SubmissionStatus!

@@ -1,17 +1,27 @@
 extend type Query {
-    participant(id: ID!): Participant @auth
+    participant(id: ID!): Participant
+        @ifAuth
     # participants: Searching is unsupported
 }
 
 extend type Mutation {
-    createParticipant(scope: ID!): Participant! @auth
-    skipParticipantStep(id: ID!): Participant @auth
-    deleteParticipant(id: ID!): Participant @auth
+    createParticipant(scope: ID!): Participant!
+        @ifScopeNotEnded
+        @inferScope
+        @ifAuth
+    skipParticipantStep(id: ID!): Participant
+        @ifOwns
+        @retrieve(collection: "participant")
+        @ifAuth
+    deleteParticipant(id: ID!): Participant
+        @ifAdmin
+        @ifAuth
 }
 
 type Participant {
     id: ID!
     scope: Scope!
+        @filterVisibility
     user: User!
     step: Int
     skippedStep: Int

@@ -1,4 +1,4 @@
-export default {
+export const aliceConfig = {
     cachePath: './cache',
     infilePath: './upload/infile',
     outfilePath: './upload/outfile',

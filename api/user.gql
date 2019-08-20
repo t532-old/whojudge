@@ -19,6 +19,10 @@ extend type Mutation {
         pass: String!
     ): Token!
     deleteToken(id: ID!): Token
+    createRootUser(
+        token: ID!
+        pass: String!
+    ): User!
     createUser(
         username: String!
         pass: String!

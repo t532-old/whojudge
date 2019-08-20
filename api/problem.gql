@@ -1,5 +1,6 @@
 extend type Query {
     problem(id: ID!): Problem
+        @filterOrder
         @filterParticipated
         @filterScopeStarted
         @filterVisibility
@@ -14,15 +15,15 @@ extend type Query {
         first: Int
         last: Int
     ): [Problem]!
+        @filterOrder
         @filterParticipated
         @filterScopeStarted
-        @filterVisibility
         @inferScope(array: true)
         @ifAuth
 }
 
 extend type Mutation {
-    createProblem(scope: ID!): Problem!
+    createProblem(scope: ID!): Problem
         @inferScope
         @ifAdmin
         @ifAuth

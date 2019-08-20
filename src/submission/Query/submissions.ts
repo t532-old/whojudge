@@ -1,4 +1,4 @@
-import { prisma, ID_Input, SubmissionWhereInput, SubmissionOrderByInput, Int } from '../../prisma-client'
+import { ID_Input, SubmissionWhereInput, SubmissionOrderByInput, Int } from '../../prisma-client'
 import { WhojudgeContext } from '../../context'
 
 interface SubmissionsInput {

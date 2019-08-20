@@ -1,4 +1,4 @@
-import { prisma } from '../../prisma-client'
+import { prisma, ParticipantCreateInput } from '../../prisma-client'
 import { WhojudgeContext } from '../../context'
 import * as ruleset from '../../config/rules'
 import { ApolloError } from 'apollo-server-koa'
@@ -10,7 +10,7 @@ export async function createParticipant(_1, _2, ctx: WhojudgeContext) {
     })
     if (hasParticipant)
         throw new ApolloError('Already participated', 'WHOJ_PART_EXIST')
-    const participant: any = {
+    const participant: ParticipantCreateInput = {
         scope: { connect: { id: ctx.scope.id } },
         user: { connect: { id: ctx.user.id } },
     }
@@ -22,9 +22,11 @@ export async function createParticipant(_1, _2, ctx: WhojudgeContext) {
         const problemCount = await prisma.problemsConnection({ where: { scope: { id: ctx.scope.id } } })
             .aggregate()
             .count()
-        participant.score = new Array(problemCount)
-            .fill(null)
-            .map(_ => ruleset[ctx.scope.contestMode].init())
+        participant.score = {
+            set: new Array(problemCount)
+                .fill(null)
+                .map(_ => ruleset[ctx.scope.contestMode].init())
+        }
     }
     return prisma.createParticipant(participant)
 }

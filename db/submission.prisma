@@ -13,6 +13,7 @@ enum TestcaseStatus {
 }
 
 type TestcaseResult @embedded {
+    order: Int!
     time: Int!
     memory: Int!
     point: Int!
@@ -23,7 +24,7 @@ enum SubmissionStatus {
     JUDGING,
     ACCEPTED,
     NOT_ACCEPTED,
-    COMPILE_ERR,
+    ERROR,
 }
 
 type Submission {
@@ -39,7 +40,6 @@ type Submission {
     code: String!
     language: String!
     status: SubmissionStatus!
-    score: Int!
     detail: [TestcaseResult!]!
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt

@@ -60,10 +60,6 @@ input ProblemWhereInput {
     hasStory: Boolean
     isReady: Boolean
     visible: Boolean
-    nAccepted_lte: Int
-    nAccepted_gte: Int
-    nAttempted_lte: Int
-    nAttempted_gte: Int
     createdAt_lte: DateTime
     createdAt_gte: DateTime
     updatedAt_lte: DateTime
@@ -126,7 +122,6 @@ type Testcase {
     time: Int!
     memory: Int!
     point: Int!
-    isReady: Boolean!
 }
 
 type Problem {
@@ -147,8 +142,6 @@ type Problem {
     spj: String!
     tags: [String!]!
     visible: Boolean!
-    nAccepted: Int!
-    nAttempted: Int!
     submissions(
         where: SubmissionWhereInput
         orderBy: SubmissionOrderByInput

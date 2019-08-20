@@ -39,6 +39,9 @@ Yet Another Online Judge System.
 ## Editing Rules
 Here's a boilerplate:
 ```ts
+import { WhojudgeContext } from '../../context'
+import { SubmissionPromise } from '../../prisma-client'
+
 // Standard OI Contest Mode
 
 // The Scoring Object.
@@ -61,37 +64,31 @@ export function init(): Score {
     }
 }
 
-// Does nothing
-export function begin(time: number): void {}
-
-// Does nothing
-export function end(): void {}
-
 // Update score if not compile error
-export function update(
+export async function update(
     last: Score,
-    submission: Submission,
-    scores: Score[],
-): void {
-    if (submission.status !== 'ERROR') {
-        last.score = submission.score
-        last.time = submission.detail.reduce((a, i) => a + i.time)
+    submission: () => SubmissionPromise,
+    context: WhojudgeContext,
+): Promise<void> {
+    if (await submission().status() !== 'ERROR') {
+        const detail = await submission().detail()
+        last.score = detail.reduce((a, i) => a + i.point, 0)
+        last.time = detail.reduce((a, i) => a + i.time, 0)
     }
 }
 
 // Compare by total score;
 // If two total scores are the same, compare by run times of the first problem.
 export function sort(a: Score[], b: Score[]): number {
-    return
-        b.reduce((a, i) => a + i) - a.reduce((a, i) => a + i) ||
+    return (
+        b.reduce((a, i) => a + i.score, 0) - a.reduce((a, i) => a + i.score, 0) ||
         a[0].time - b[0].time
+    )
 }
 ```
 
 Basically:
 - `init()` returns an initial scoring object;
-- `begin()` runs when the contest begins;
-- `end()` runs when the contest ends;
 - `update()` is called every time a submission is judged;
 - `sort()` is used with `Array.prototype.sort()` to sort participants and generate the leaderboard;
 - `mask()` determines whether to show the leaderboard or not.

@@ -19,8 +19,6 @@ export const Problem = {
     spj: map('spj'),
     tags: map('tags'),
     visible: map('visible'),
-    nAccepted: map('nAccepted'),
-    nAttempted: map('nAttempted'),
     submissions: lnk('submissions'),
     createdAt: map('createdAt'),
     updatedAt: map('updatedAt'),

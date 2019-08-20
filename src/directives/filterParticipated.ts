@@ -12,7 +12,7 @@ export const filterParticipated = makeDirective(
                         scope: { id: ctx.scope.id },
                     }
                 }))[0]
-                ctx.participant_s = prisma.participant({ id: ctx.participant.id })
+                ctx.participant_s = () => prisma.participant({ id: ctx.participant.id })
             } catch { ctx.participant = null }
             if (!ctx.user.isAdmin) {
                 if (ctx.participant) return result

@@ -11,5 +11,5 @@ interface ProblemsInput {
 }
 
 export async function problems(_, args: ProblemsInput, ctx: WhojudgeContext) {
-    return ctx.scope_s.problems(args)
+    return ctx.scope_s().problems(args)
 }

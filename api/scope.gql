@@ -72,8 +72,8 @@ input ScopeUpdateInput {
     contestMode: String
     description: String
     visible: Boolean
-    from: Int
-    to: Int
+    from: DateTime
+    to: DateTime
 }
 
 type Scope {

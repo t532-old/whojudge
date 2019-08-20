@@ -55,8 +55,6 @@ export async function createProblem(_1, args: CreateProblemInput, ctx: WhojudgeC
         spj: DEFAULT_SPECIALJUDGE,
         tags: { set: [] },
         visible: false,
-        nAccepted: 0,
-        nAttempted: 0,
         order: problemCount,
     })
     updateSpecialJudge(result.id, createReadStream(DEFAULT_SPECIALJUDGE))

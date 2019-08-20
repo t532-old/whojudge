@@ -7,7 +7,6 @@ type Testcase @embedded {
     time: Int!
     memory: Int!
     point: Int!
-    isReady: Boolean!
 }
 
 type Problem {
@@ -33,8 +32,6 @@ type Problem {
     spj: String!
     tags: [String!]!
     visible: Boolean!
-    nAccepted: Int!
-    nAttempted: Int!
     submissions: [Submission!]! @relation(name: "SubmissionOfProblem")
     order: Int!
     createdAt: DateTime! @createdAt

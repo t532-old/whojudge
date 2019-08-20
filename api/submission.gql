@@ -45,8 +45,6 @@ input SubmissionWhereInput {
     AND: [SubmissionWhereInput!]
     language: String
     status: SubmissionStatus
-    score_lte: Int
-    score_gte: Int
     createdAt_lte: DateTime
     createdAt_gte: DateTime
 }
@@ -75,6 +73,7 @@ enum TestcaseStatus {
 }
 
 type TestcaseResult {
+    order: Int!
     time: Int!
     memory: Int!
     point: Int!
@@ -98,7 +97,6 @@ type Submission {
     code: String
     language: String!
     status: SubmissionStatus!
-    score: Int!
     detail: [TestcaseResult!]!
     createdAt: String!
     updatedAt: String!

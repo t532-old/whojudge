@@ -39,16 +39,20 @@ Yet Another Online Judge System.
 ## 编辑规则
 参考这个模板：
 ```ts
-// OI 模式
+import { WhojudgeContext } from '../../context'
+import { SubmissionPromise } from '../../prisma-client'
 
-// 计分对象；
-// 这个结构可以改变。
+// Standard OI Contest Mode
+
+// The Scoring Object.
+// The structure is not necessary;
+// This is just an example.
 interface Score {
     score: number
     time: number
 }
 
-// 比赛时总是隐藏分数
+// Always hide the leaderboard
 export function mask(time: number, total: number): boolean {
     return true
 }
@@ -60,35 +64,30 @@ export function init(): Score {
     }
 }
 
-// 啥都不干
-export function begin(time: number): void {}
-
-// 啥都不干
-export function end(): void {}
-
-// 如果没有 CE，就更新分数
-export function update(
+// Update score if not compile error
+export async function update(
     last: Score,
-    submission: Submission,
-    scores: Score[],
-): void {
-    if (submission.status !== 'ERROR') {
-        last.score = submission.score
-        last.time = submission.detail.reduce((a, i) => a + i.time)
+    submission: () => SubmissionPromise,
+    context: WhojudgeContext,
+): Promise<void> {
+    if (await submission().status() !== 'ERROR') {
+        const detail = await submission().detail()
+        last.score = detail.reduce((a, i) => a + i.point, 0)
+        last.time = detail.reduce((a, i) => a + i.time, 0)
     }
 }
 
-// 比较总分；如果相同则比较 T1 的运行时间。
+// Compare by total score;
+// If two total scores are the same, compare by run times of the first problem.
 export function sort(a: Score[], b: Score[]): number {
-    return
-        b.reduce((a, i) => a + i) - a.reduce((a, i) => a + i) ||
+    return (
+        b.reduce((a, i) => a + i.score, 0) - a.reduce((a, i) => a + i.score, 0) ||
         a[0].time - b[0].time
+    )
 }
 ```
 
 - `init()` 返回初始计分对象；
-- `begin()` 在比赛开始时运行；
-- `end()` 在比赛结束时运行；
 - `update()` 在每次提交时运行；
 - `sort()` 会在计算排行时被传入 `Array.prototype.sort()`；
 - `mask()` 决定是否显示计分板。

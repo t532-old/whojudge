@@ -16,7 +16,7 @@ export async function updateProblem(_, { id, data }: UpdateProblemInput) {
     }
     if (data.testcases) {
         preData.testcases = { deleteMany: {} }
-        data.testcases = { create: data.examples }
+        data.testcases = { create: data.testcases }
     }
     if (data.tags)
         { data.tags = { set: data.tags } }

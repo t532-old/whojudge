@@ -11,19 +11,8 @@ type User {
     username: String! @unique
     passwordHash: String!
     introduction: String!
-    acceptedProblems: [Problem!]! @relation(
-        name: "AcceptedProblemsOfUser"
-        link: INLINE
-    )
-    attemptedProblems: [Problem!]! @relation(
-        name: "AttemptedProblemsOfUser"
-        link: INLINE
-    )
     isAdmin: Boolean!
-    scopes: [Scope!]! @relation(name: "ScopeOfUser")
     participants: [Participant!]! @relation(name: "ParticipantOfUser")
-    submissions: [Submission!]! @relation(name: "SubmissionOfUser")
-    problems: [Problem!]! @relation(name: "ProblemOfUser")
     createdAt: DateTime! @createdAt
     updatedAt: DateTime! @updatedAt
     lastSubmitAt: DateTime!

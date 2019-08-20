@@ -1,16 +1,18 @@
 directive @ifAuth on FIELD_DEFINITION
 directive @ifAdmin on FIELD_DEFINITION
 directive @ifOwns on FIELD_DEFINITION
+directive @ifOrder on FIELD_DEFINITION
 directive @ifParticipated on FIELD_DEFINITION
 directive @ifScopeStarted on FIELD_DEFINITION
 directive @ifScopeNotEnded on FIELD_DEFINITION
+directive @filterOrder on FIELD_DEFINITION
 directive @filterParticipated on FIELD_DEFINITION
 directive @filterScopeStarted on FIELD_DEFINITION
 directive @filterScopeEnded on FIELD_DEFINITION
 directive @filterVisibility on FIELD_DEFINITION
 directive @inferScope(array: Boolean) on FIELD_DEFINITION
 directive @inferProblem(array: Boolean) on FIELD_DEFINITION
-directive @retrieve(collection: String!) on FIELD_DEFINITION
+directive @retrieve(collection: String!, key: String) on FIELD_DEFINITION
 
 scalar Json
 scalar DateTime

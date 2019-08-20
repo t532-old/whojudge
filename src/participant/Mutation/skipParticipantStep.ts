@@ -9,7 +9,7 @@ interface SkipParticipantStepInput {
 export async function skipParticipantStep(_, args: SkipParticipantStepInput, ctx: WhojudgeContext) {
     if (typeof ctx.participant.step !== 'number')
         throw new ApolloError('Not linear scope', 'WHOJ_SCOPE_NLINEAR')
-    const scope = await ctx.participant_s.scope()
+    const scope = await ctx.participant_s().scope()
     const skip = Number(ctx.participant.skippedStep + 1 <= scope.skippable)
     return prisma.updateParticipant({
         where: args,

@@ -12,7 +12,7 @@ directive @filterScopeEnded on FIELD_DEFINITION
 directive @filterVisibility on FIELD_DEFINITION
 directive @inferScope(array: Boolean) on FIELD_DEFINITION
 directive @inferProblem(array: Boolean) on FIELD_DEFINITION
-directive @retrieve(collection: String!, key: String) on FIELD_DEFINITION
+directive @retrieve(collection: String!) on FIELD_DEFINITION
 
 scalar Json
 scalar DateTime

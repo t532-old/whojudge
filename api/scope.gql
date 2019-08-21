@@ -13,6 +13,7 @@ extend type Query {
         @filterVisibility
         @ifAuth
     sortedParticipants(id: ID!): [Participant!]
+        @retrieve(collection: "scope")
         @ifAuth
 }
 
@@ -35,7 +36,6 @@ input ScopeWhereInput {
     id: ID
     creator: String
     title_contains: String
-    OR: [ScopeWhereInput!]
     AND: [ScopeWhereInput!]
     isLinear: Boolean
     isContest: Boolean

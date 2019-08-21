@@ -1,9 +1,5 @@
-import { prisma, ID_Input } from '../../prisma-client'
+import { WhojudgeContext } from '../../context'
 
-interface ProblemInput {
-    id: ID_Input
-}
-
-export async function problem(_, args: ProblemInput) {
-    return prisma.problem(args)
+export async function problem(_1, _2, ctx: WhojudgeContext) {
+    return ctx.problem
 }

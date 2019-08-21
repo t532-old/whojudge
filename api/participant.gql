@@ -1,5 +1,6 @@
 extend type Query {
     participant(id: ID!): Participant
+        @retrieve(collection: "participant")
         @ifAuth
     # participants: Searching is unsupported
 }

@@ -41,7 +41,6 @@ extend type Mutation {
 input SubmissionWhereInput {
     id: ID
     user: String
-    OR: [SubmissionWhereInput!]
     AND: [SubmissionWhereInput!]
     language: String
     status: SubmissionStatus

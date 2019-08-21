@@ -40,14 +40,11 @@ extend type Mutation {
     ): User
         @ifAdmin
         @ifAuth
-    uploadAvatar(file: Upload!): File
-        @ifAuth
 }
 
 input UserWhereInput {
     id: ID
     username_contains: String
-    OR: [UserWhereInput!]
     AND: [UserWhereInput!]
     acceptedProblems_some: ProblemWhereInput
     attemptedProblems_some: ProblemWhereInput

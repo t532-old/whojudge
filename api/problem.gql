@@ -31,6 +31,8 @@ extend type Mutation {
         id: ID!
         data: ProblemUpdateInput
     ): Problem
+        @inferScope
+        @retrieve(collection: "problem")
         @ifAdmin
         @ifAuth
     deleteProblem(id: ID!): Problem
@@ -55,7 +57,6 @@ input ProblemWhereInput {
     id: ID
     creator: String
     title_contains: String
-    OR: [ProblemWhereInput!]
     AND: [ProblemWhereInput!]
     hasStory: Boolean
     isReady: Boolean
@@ -111,6 +112,7 @@ input ProblemUpdateInput {
     spj: String
     tags: [String!]
     visible: Boolean
+    order: Int
 }
 
 type Example {

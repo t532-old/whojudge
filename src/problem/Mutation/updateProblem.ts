@@ -2,13 +2,14 @@ import { prisma, ID_Input } from '../../prisma-client'
 import { updateSpecialJudge } from '@whojudge/alice'
 import { createReadStream } from 'streamifier'
 import { ApolloError } from 'apollo-server-koa'
+import { WhojudgeContext } from '../../context'
 
 interface UpdateProblemInput {
     id: ID_Input
     data: any
 }
 
-export async function updateProblem(_, { id, data }: UpdateProblemInput) {
+export async function updateProblem(_, { id, data }: UpdateProblemInput, ctx: WhojudgeContext) {
     const preData: any = {}
     if (data.examples) {
         preData.examples = { deleteMany: {} }
@@ -21,13 +22,12 @@ export async function updateProblem(_, { id, data }: UpdateProblemInput) {
     if (data.tags)
         { data.tags = { set: data.tags } }
     if (data.order) {
-        const { scope, order } = prisma.problem({ id })
         const swapped = await prisma.updateManyProblems({
             where: {
-                scope: { id: await scope().id() },
-                order: await order(),
+                scope: { id: ctx.scope.id },
+                order: data.order,
             },
-            data: { order: data.order }
+            data: { order: ctx.problem.order }
         })
         if (!Number(swapped.count))
             throw new ApolloError('Problem does not exist', 'WHOJ_PROB_NEXIST')

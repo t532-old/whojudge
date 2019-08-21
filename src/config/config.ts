@@ -1,3 +1,5 @@
+export const submitRate = 30 * 1000
+
 export const aliceConfig = {
     cachePath: './cache',
     infilePath: './upload/infile',

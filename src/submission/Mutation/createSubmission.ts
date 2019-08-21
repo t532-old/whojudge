@@ -1,8 +1,10 @@
-import { prisma, ID_Input, String, TestcaseResultCreateInput, Submission, SubmissionStatus, TestcaseResult } from '../../prisma-client'
+import { prisma, ID_Input, String, TestcaseResultCreateInput, SubmissionStatus, TestcaseResult } from '../../prisma-client'
 import { WhojudgeContext } from '../../context'
 import { createSubmission as createAliceSubmission, testSubmission } from '@whojudge/alice'
 import { createReadStream } from 'streamifier'
+import { submitRate } from '../../config/config'
 import * as ruleset from '../../config/rules'
+import { ApolloError } from 'apollo-server-koa'
 
 interface CreateSubmissionInput {
     problem: ID_Input
@@ -23,6 +25,12 @@ enum StatusMapping {
 }
 
 export async function createSubmission(_1, { problem, code, language }: CreateSubmissionInput, ctx: WhojudgeContext) {
+    if (Date.now() - new Date(ctx.user.lastSubmitAt).valueOf() < submitRate)
+        throw new ApolloError('Submit rate limit exceeded', 'WHOJ_RATE')
+    else await prisma.updateUser({
+        where: { id: ctx.user.id },
+        data: { lastSubmitAt: new Date() },
+    })
     const result = await prisma.createSubmission({
         user: { connect: { id: ctx.user.id } },
         problem: { connect: { id: problem } },
@@ -70,7 +78,7 @@ export async function createSubmission(_1, { problem, code, language }: CreateSu
             }).detail()
         }))
     } else {
-        judgePromise = void async function() {
+        judgePromise = (async () => {
             detail = await prisma.updateSubmission({
                 where: { id: result.id },
                 data: {
@@ -83,7 +91,7 @@ export async function createSubmission(_1, { problem, code, language }: CreateSu
                     status: 'ERROR',
                 }
             }).detail()
-        }()
+        })()
     }
     void async function afterJudge() {
         await judgePromise
@@ -107,13 +115,12 @@ export async function createSubmission(_1, { problem, code, language }: CreateSu
             }
             if (ctx.scope.isContest) {
                 await ruleset[ctx.scope.contestMode].update(ctx.participant.score[ctx.problem.order], () => prisma.submission({ id: result.id }), ctx)
-                const rst = await prisma.updateParticipant({
+                await prisma.updateParticipant({
                     where: { id: ctx.participant.id },
                     data: {
                         score: { set: ctx.participant.score },
                     }
                 })
-                console.log(rst.score)
             }
         }
     }()

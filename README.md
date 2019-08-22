@@ -93,6 +93,12 @@ Basically:
 - `sort()` is used with `Array.prototype.sort()` to sort participants and generate the leaderboard;
 - `mask()` determines whether to show the leaderboard or not.
 
+## As an Admin of Your OJ...
+There are 2 types of users: Normal and Admin. A normal user is just a user, however an admin user infers that:
+- You are the owner of the OJ, or someone trustworthy;
+- Thus you are completely clear about what you're doing, and are responsible for every operation you perform;
+- And every illegal operation you perform may break your OJ!
+
 ## I've Found a Bug...
 Any contribution is welcome! You can:
 - File an issue;

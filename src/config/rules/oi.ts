@@ -11,9 +11,12 @@ interface Score {
     time: number
 }
 
-// Always hide the leaderboard
+// Always hide the leaderboard during contest
 export function mask(from?: Date, to?: Date): boolean {
-    return true
+    const now = new Date()
+    if (now > from && now < to)
+        return true
+    else return false
 }
 
 export function init(): Score {

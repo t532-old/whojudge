@@ -11,5 +11,11 @@ interface ProblemsInput {
 }
 
 export async function problems(_, args: ProblemsInput, ctx: WhojudgeContext) {
-    return ctx.scope_s().problems(args)
+    return ctx.scope_s().problems({
+        where: args.where,
+        orderBy: args.orderBy,
+        skip: args.skip,
+        first: args.first,
+        last: args.last,
+    })
 }

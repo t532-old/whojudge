@@ -90,7 +90,7 @@ type Scope {
         @filterParticipated
         @filterScopeStarted
         @filterVisibility
-    participants(sorted: Boolean! = false): [Participant!]!
+    participants: [Participant!]!
     isLinear: Boolean!
     skippable: Int
     isContest: Boolean!

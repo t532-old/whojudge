@@ -12,7 +12,7 @@ interface Score {
 }
 
 // Always hide the leaderboard
-export function mask(time: number, total: number): boolean {
+export function mask(from?: Date, to?: Date): boolean {
     return true
 }
 

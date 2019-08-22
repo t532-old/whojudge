@@ -11,5 +11,11 @@ interface SubmissionsInput {
 }
 
 export async function submissions(_, args: SubmissionsInput, ctx: WhojudgeContext) {
-    return ctx.problem_s().submissions(args)
+    return ctx.problem_s().submissions({
+        where: args.where,
+        orderBy: args.orderBy,
+        skip: args.skip,
+        first: args.first,
+        last: args.last,
+    })
 }

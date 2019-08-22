@@ -1,6 +1,9 @@
 extend type Query {
-    participant(id: ID!): Participant
-        @retrieve(collection: "participant")
+    participant(
+        user: ID!
+        scope: ID!
+    ): Participant
+        @inferScope
         @ifAuth
     # participants: Searching is unsupported
 }
@@ -21,7 +24,7 @@ extend type Mutation {
 
 type Participant {
     id: ID!
-    scope: Scope!
+    scope: Scope
         @filterVisibility
     user: User!
     step: Int

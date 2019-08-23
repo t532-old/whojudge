@@ -36,6 +36,8 @@ extend type Mutation {
         @ifAdmin
         @ifAuth
     deleteProblem(id: ID!): Problem
+        @inferScope
+        @retrieve(collection: "problem")
         @ifAdmin
         @ifAuth
     uploadTestcaseFile(
@@ -43,7 +45,7 @@ extend type Mutation {
         idx: Int!
         file: Upload!
         type: TestcaseFileType!
-    ): File
+    ): Boolean!
         @ifAdmin
         @ifAuth
 }

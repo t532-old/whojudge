@@ -17,11 +17,5 @@ directive @retrieve(collection: String!) on FIELD_DEFINITION
 scalar Json
 scalar DateTime
 
-type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
-}
-
 type Query
 type Mutation

@@ -21,7 +21,7 @@ export async function updateProblem(_, { id, data }: UpdateProblemInput, ctx: Wh
     }
     if (data.tags)
         { data.tags = { set: data.tags } }
-    if (data.order) {
+    if ('order' in data) {
         const swapped = await prisma.updateManyProblems({
             where: {
                 scope: { id: ctx.scope.id },

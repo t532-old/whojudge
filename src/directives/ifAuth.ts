@@ -6,7 +6,7 @@ export const ifAuth = makeDirective(
     function (resolver) {
         return async function (parent, args, ctx, info) {
             try {
-                ctx.user_s = () => prisma.token({ id: ctx.token }).user()
+                ctx.user_s = () => prisma.token({ token: ctx.token }).user()
                 ctx.user = await ctx.user_s()
             } catch { ctx.user = null }
             if (ctx.user === null)

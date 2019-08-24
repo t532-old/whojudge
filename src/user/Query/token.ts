@@ -1,7 +1,7 @@
-import { prisma, ID_Input } from '../../prisma-client'
+import { prisma, String } from '../../prisma-client'
 
 interface TokenInput {
-    id: ID_Input
+    token: String
 }
 
 export function token(_, args: TokenInput) {

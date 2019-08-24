@@ -1,5 +1,6 @@
 type Token {
     id: ID! @id
+    token: String! @unique
     user: User! @relation(
         name: "TokenOfUser"
         link: INLINE

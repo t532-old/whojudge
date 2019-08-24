@@ -1,6 +1,7 @@
 import { prisma, String } from '../../prisma-client'
 import { compare } from 'bcrypt'
 import { ApolloError } from 'apollo-server-koa'
+import nanoid from 'nanoid'
 
 interface CreateTokenInput {
     username: String
@@ -11,6 +12,7 @@ export async function createToken(_, args: CreateTokenInput) {
     const user = await prisma.user({ username: args.username })
     if (user !== null && await compare(args.pass, user.passwordHash)) {
         return prisma.createToken({
+            token: nanoid(),
             user: { connect: { id: user.id } },
         })
     } else

@@ -1,7 +1,7 @@
-import { prisma, ID_Input } from '../../prisma-client'
+import { prisma, String } from '../../prisma-client'
 
 interface DeleteTokenInput {
-    id: ID_Input
+    token: String
 }
 
 export async function deleteToken(_, args: DeleteTokenInput) {
